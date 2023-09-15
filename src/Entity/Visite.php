@@ -32,6 +32,9 @@ class Visite
     #[ORM\Column(nullable: true)]
     private ?int $tempsmax = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $pays = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Visite
     public function setTempsmax(?int $tempsmax): static
     {
         $this->tempsmax = $tempsmax;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): static
+    {
+        $this->pays = $pays;
 
         return $this;
     }
