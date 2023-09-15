@@ -2,4 +2,7 @@
 
 {% block body %}
 <h1>Page des Voyages</h1>
+{% for visite in visites %}
+    {{ visite.ville }}
+{% endfor %}
 {% endblock %}
