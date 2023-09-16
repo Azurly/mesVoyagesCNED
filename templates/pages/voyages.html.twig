@@ -1,8 +1,33 @@
 {% extends "basefront.html.twig" %}
 
 {% block body %}
-<h1>Page des Voyages</h1>
+<table class="table table-striped">
+<thead>
+<th class="text-left" scope="col"></th>
+<th class="text-left" scope="col"></th>
+<th class="text-end" scope="col"></th>
+<th class="text-center" scope="col"></th>
+</tr>
+</thead>
+<tbody>
 {% for visite in visites %}
-    {{ visite.ville }}
+<tr>
+<td>
+<h5 class="text-primary">
+<a href="#">{{ visite.ville }}</a>
+</h5>
+</td>
+<td>
+{{visite.pays}}
+</td>
+<td class="text-end">
+<strong>{{visite.note}}/20</strong>
+</td>
+<td class="text-center">
+{{visite.datecreationString}}
+</td>
+</tr>
 {% endfor %}
+</tbody>
+</table>
 {% endblock %}
