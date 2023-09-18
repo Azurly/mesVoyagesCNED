@@ -21,7 +21,13 @@
 {{visite.pays}}
 </td>
 <td class="text-end">
-<strong>{{visite.note}}/20</strong>
+<strong>
+{% if visite.note < 10 %}
+<div class="text-danger">{{visite.note}}/20</div>
+{% else %}
+<div class="text-success">{{visite.note}}/20</div>
+{% endif %}
+</strong>
 </td>
 <td class="text-center">
 {{visite.datecreationString}}
