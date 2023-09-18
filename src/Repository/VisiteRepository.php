@@ -20,6 +20,17 @@ class VisiteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Visite::class);
     }
+    /**
+     * @param type $champ
+     * @param type $ordre
+     * @return Visite[]
+     */
+    public function findAllOrderBy($champ, $ordre) : array{
+        return $this->createQueryBuilder('v')
+        ->orderBy('v.'.$champ, $ordre)
+        ->getQuery()
+        ->getResult();
+    }
 
 //    /**
 //     * @return Visite[] Returns an array of Visite objects
