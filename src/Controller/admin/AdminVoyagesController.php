@@ -2,10 +2,12 @@
 namespace App\Controller\admin;
 
 use App\Repository\VisiteRepository;
+use App\Entity\Visite;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 class AdminVoyagesController extends AbstractController{
 
@@ -24,6 +26,7 @@ class AdminVoyagesController extends AbstractController{
     }
     /**
      * @Route("/admin/suppr/{id}", name="admin.voyage.suppr")
+     * @Entity("Visite", expr="repository.find(id)")
      * @param Visite $visite
      * @return Response
      */
