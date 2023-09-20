@@ -20,6 +20,26 @@ class EnvironnementRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Environnement::class);
     }
+    /**
+     * @param Environnement $entity
+     * @param bool $flush
+     */
+    public function add(Environnement $entity, $flush = false) : void{
+        $this->getEntityManager()->persist($entity);
+        if($flush){
+            $this->getEntityManager()->flush();
+        }
+    }
+    /**
+     * @param Environnement $entity
+     * @param bool $flush
+     */
+    public function remove(Environnement $entity, $flush = false) : void{
+        $this->getEntityManager()->remove($entity);
+        if($flush){
+            $this->getEntityManager()->flush();
+        }
+    }
 
 //    /**
 //     * @return Environnement[] Returns an array of Environnement objects
