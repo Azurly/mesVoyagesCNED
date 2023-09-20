@@ -51,7 +51,11 @@ class VisiteRepository extends ServiceEntityRepository
             ->getResult();
         }
     }
-    public function add(Visite $entity, bool $flush = false) : void{
+    /**
+     * @param Visite $entity
+     * @param bool $flush
+     */
+    public function add($entity, $flush = false) : void{
         $this->getEntityManager()->persist($entity);
         if($flush){
             $this->getEntityManager()->flush();
