@@ -16,6 +16,10 @@
 			<h5 class="mt-5">Température entre
 				{{visite.tempsmin}}° et
 				{{visite.tempsmax}}°</h5>
+			<p class="mt-5"><strong>Environnements :</strong></p>
+			{% for environnement in visite.environnements %}
+				{{environnement.nom}}
+			{% endfor %}
 		</div>
 		<div
 			class="col"><!--emplacement des photos-->
