@@ -14,7 +14,7 @@ class VisiteType extends AbstractType
     {
         $builder
             ->add('ville')
-            ->add('datecreation', null, ['label' => 'Date'])
+            ->add('datecreation', null, ['widget' => 'single_text','label' => 'Date'])
             ->add('note')
             ->add('avis')
             ->add('tempsmin', null, ['label' => 'Température Min'])
