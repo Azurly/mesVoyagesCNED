@@ -2,13 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\VisiteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Vich\Uploadable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VisiteRepository;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\AnnotationInterface as Vich;
 
 #[ORM\Entity(repositoryClass: VisiteRepository::class)]
+#[Uploadable]
 class Visite
 {
     #[ORM\Id]
@@ -37,6 +41,18 @@ class Visite
     #[ORM\Column(length: 50)]
     private ?string $pays = null;
 
+    /**
+     * @Vich\UploadableField(mapping="visites", FileNameProperty="imageName")
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     */
+    private $imageName;
+    
     #[ORM\ManyToMany(targetEntity: Environnement::class)]
     private Collection $environnements;
 
@@ -166,4 +182,40 @@ class Visite
 
         return $this;
     }
+
+	/**
+	 * 
+	 * @return File|null
+	 */
+	public function getImageFile() {
+		return $this->imageFile;
+	}
+	
+	/**
+	 * 
+	 * @param File|null $imageFile 
+	 * @return self
+	 */
+	public function setImageFile($imageFile): self {
+		$this->imageFile = $imageFile;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @return string|null
+	 */
+	public function getImageName() {
+		return $this->imageName;
+	}
+	
+	/**
+	 * 
+	 * @param string|null $imageName 
+	 * @return self
+	 */
+	public function setImageName($imageName): self {
+		$this->imageName = $imageName;
+		return $this;
+	}
 }
