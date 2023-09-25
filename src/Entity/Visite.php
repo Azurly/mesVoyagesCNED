@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\Uploadable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +10,7 @@ use App\Repository\VisiteRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use Vich\UploaderBundle\Mapping\AnnotationInterface as Vich;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: VisiteRepository::class)]
 #[Uploadable]
@@ -41,20 +42,17 @@ class Visite
     #[ORM\Column(length: 50)]
     private ?string $pays = null;
 
-    /**
-     * @Vich\UploadableField(mapping="visites", FileNameProperty="imageName")
-     * @var File|null
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: 'visites', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
-     */
-    private $imageName;
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
     
     #[ORM\ManyToMany(targetEntity: Environnement::class)]
     private Collection $environnements;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
 
     public function __construct()
     {
@@ -183,39 +181,39 @@ class Visite
         return $this;
     }
 
-	/**
-	 * 
-	 * @return File|null
-	 */
-	public function getImageFile() {
-		return $this->imageFile;
-	}
+	public function getImageFile(): ?File {
+         		return $this->imageFile;
+         	}
 	
-	/**
-	 * 
-	 * @param File|null $imageFile 
-	 * @return self
-	 */
-	public function setImageFile($imageFile): self {
-		$this->imageFile = $imageFile;
-		return $this;
-	}
 
-	/**
-	 * 
-	 * @return string|null
-	 */
-	public function getImageName() {
-		return $this->imageName;
-	}
+	public function setImageFile($imageFile): self {
+         		$this->imageFile = $imageFile;
+                if($this->imageFile instanceof UploadedFile){
+                $this->updated_at = new \DateTime('now');
+                }
+         		return $this;
+         	}
+
+
+	public function getImageName(): ?string {
+         		return $this->imageName;
+         	}
 	
-	/**
-	 * 
-	 * @param string|null $imageName 
-	 * @return self
-	 */
+
 	public function setImageName($imageName): self {
-		$this->imageName = $imageName;
-		return $this;
-	}
+         		$this->imageName = $imageName;
+         		return $this;
+         	}
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
+    }
 }
