@@ -11,9 +11,10 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VisiteRepository::class)]
-#[Uploadable]
+#[Vich\Uploadable]
 class Visite
 {
     #[ORM\Id]

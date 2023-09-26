@@ -9,9 +9,19 @@
 		</div>
 		{{ form_row(formVisite.ville) }}
 		{{ form_row(formVisite.pays) }}
-        {{ form_row(formVisite.environnements) }}
+		{{ form_row(formVisite.environnements) }}
 	</div>
-	<div class="col"><div>{{ form_row(formVisite.imageFile) }}</div></div>
+	<div class="col">
+		<div>{{ form_row(formVisite.imageFile) }}</div>
+		<div>Image Actuelle
+			{% if visite.imageName %}
+				<img src="/mesVoyages/public/images/visites/{{visite.imageName}}" class="caed-img-top" style="width: 100%; height:auto;">
+			{% else %}
+				<p>Aucune Image</p>
+			{% endif %}
+
+		</div>
+	</div>
 </div>
 <div class="row">
 	<div class="col">{{ form_row(formVisite.avis) }}</div>
