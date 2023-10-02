@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\Uploadable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -216,5 +217,17 @@ class Visite
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    public function validate(ExecutionContextInterface $context){
+        $image = $this->getImageFile();
+        if($image !=null && $image !=""){
+            $tailleImage = @getimagesize($image);
+            if(!($tailleImage==false)){
+                if($tailleImage[0]>1300 || $tailleImage[1]>1300){
+                    $context->buildViolation("L'image fait 1300 pixels de trop")->atPath('nom_champ')->addViolation();
+                }
+            }
+        }
     }
 }
