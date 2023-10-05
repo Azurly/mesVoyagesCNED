@@ -30,6 +30,7 @@ class Visite
     private ?\DateTimeInterface $datecreation = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(min: 0, max: 20)]
     private ?int $note = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -39,6 +40,7 @@ class Visite
     private ?int $tempsmin = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\GreaterThan(propertyPath:"tempsmin")]
     private ?int $tempsmax = null;
 
     #[ORM\Column(length: 50)]
